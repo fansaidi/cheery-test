@@ -13,6 +13,8 @@ This [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1Jk4Lg1STkrI665
 - ✅ **Generate Dummy Data**  
   Quickly populate the sheet for testing by selecting `AI Tool > Generate Dummy Data` from the menu.
 
+  ![Image](https://github.com/user-attachments/assets/a7ae3fe7-c16d-46c5-b40d-1ca0eeff5027)
+
 - 🔁 **Webhook on Edit**  
   An `onEdit` trigger sends a webhook to the app whenever the sheet is modified, enabling real-time updates via SSE.
 
