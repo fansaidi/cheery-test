@@ -59,11 +59,11 @@ export default function Home() {
     <div className="p-8">
       <h1 className="text-2xl font-semibold mb-4">Google Sheet Data</h1>
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 text-sm">
+        <table className="min-w-full text-sm">
           <thead className="bg-gray-100">
             <tr>
               {rows[0].map((header, idx) => (
-                <th key={idx} className="border px-4 py-2 text-left font-bold text-black">
+                <th key={idx} className="px-4 py-2 text-left font-bold text-black">
                   {header}
                 </th>
               ))}
@@ -73,7 +73,7 @@ export default function Home() {
             {rows.slice(1).map((row, rowIndex) => (
               <tr key={rowIndex} className="hover:bg-gray-50 hover:text-black">
                 {row.map((cell, colIndex) => (
-                  <td key={colIndex} className="border px-4 py-2">
+                  <td key={colIndex} className="px-4 py-2">
                     {cell}
                   </td>
                 ))}
