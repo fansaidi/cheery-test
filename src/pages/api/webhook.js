@@ -32,9 +32,18 @@ export default function handler(req, res) {
 
     clients.push(client);
 
+    // Keep connection alive
+    const intervalId = setInterval(() => {
+      const message = { time: new Date().toISOString() };
+      res.write(`data: ${JSON.stringify(message)}\n\n`);
+    }, 5000);
+
+    // Clean up on disconnect
     req.on("close", () => {
+      clearInterval(intervalId);
       console.log('Client disconnected:', clientId); // For debugging
       clients = clients.filter((c) => c.id !== clientId);
+      res.end();
     });
   } else {
     res.status(405).end(); // Method Not Allowed
