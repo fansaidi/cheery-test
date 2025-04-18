@@ -20,14 +20,14 @@ export default function Home() {
 
     eventSource.onmessage = (event) => {
       console.debug('Incoming event:', event);
-      const newRow = JSON.parse(event.data);
-      console.debug('Parsed new row:', newRow);
+      // const newRow = JSON.parse(event.data);
+      // console.debug('Parsed new row:', newRow);
 
-      if (newRow.row && Array.isArray(newRow.row)) {
-        setRows((prev) => [...prev, newRow.row]); // Append new row
-      } else {
-        console.error('Invalid row structure:', newRow);
-      }
+      // if (newRow.row && Array.isArray(newRow.row)) {
+      //   setRows((prev) => [...prev, newRow.row]); // Append new row
+      // } else {
+      //   console.error('Invalid row structure:', newRow);
+      // }
     };
 
     eventSource.addEventListener("updated", (event) => {
