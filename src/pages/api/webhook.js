@@ -43,7 +43,6 @@ export default function handler(req, res) {
       clearInterval(intervalId);
       console.log('Client disconnected:', clientId); // For debugging
       clients = clients.filter((c) => c.id !== clientId);
-      res.end();
     });
   } else {
     res.status(405).end(); // Method Not Allowed
