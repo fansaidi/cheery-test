@@ -47,7 +47,6 @@ export default function Home() {
       } else {
         console.error("SSE error", err);
       }
-      eventSource.close();
     };
 
     return () => eventSource.close();
