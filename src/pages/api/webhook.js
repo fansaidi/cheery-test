@@ -7,10 +7,10 @@ export default function handler(req, res) {
     // Broadcast to all connected SSE clients
     clients.forEach((client) => {
       try {
-        console.debug(`Broadcasted to client(${client.id}):`, data); // For debugging
+        console.debug(`Broadcasted to client(${client.id}):`, data);
         client.res.write(`event: updated\ndata: ${JSON.stringify(data)}\n\n`);
       } catch (error) {
-        console.error('Error sending data to client:', error);
+        console.error("Error sending data to client:", error);
       }
     });
 
@@ -21,27 +21,23 @@ export default function handler(req, res) {
     res.setHeader("Connection", "keep-alive");
     res.setHeader("Access-Control-Allow-Origin", "*");
 
-    res.flushHeaders?.();
+    res.flushHeaders(); // flush the headers to establish SSE
 
-    res.write("event: connect\ndata: connected\n\n");
+    const clientId = req.query.clientId || Date.now(); // optional tracking
+    console.log("New client connected:", clientId);
 
-    const clientId = Date.now();
     const client = { id: clientId, res };
-
-    console.log('New client connected:', clientId); // For debugging
-
     clients.push(client);
 
-    // Keep connection alive
+    // Keep connection alive with pings
     const intervalId = setInterval(() => {
-      const message = { time: new Date().toISOString() };
-      res.write(`data: ${JSON.stringify(message)}\n\n`);
-    }, 5000);
+      res.write(`event: ping\ndata: ${JSON.stringify({ time: new Date().toISOString() })}\n\n`);
+    }, 5000); // 10s interval
 
-    // Clean up on disconnect
+    // Clean up when client disconnects
     req.on("close", () => {
+      console.log("Client disconnected:", clientId);
       clearInterval(intervalId);
-      console.log('Client disconnected:', clientId); // For debugging
       clients = clients.filter((c) => c.id !== clientId);
     });
   } else {
